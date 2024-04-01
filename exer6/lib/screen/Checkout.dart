@@ -17,6 +17,7 @@ class Checkout extends StatelessWidget {
     if (products.isNotEmpty) isVisible = true;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Checkout", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.purple.shade900,
       ),

@@ -21,6 +21,7 @@ class _MyCatalogState extends State<MyCatalog> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title:
               const Text("My Catalog", style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.purple.shade900,
