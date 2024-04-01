@@ -22,12 +22,15 @@ class MyCart extends StatelessWidget {
         children: [
           getItems(context),
           computeCost(),
-          const Divider(height: 4, color: Colors.black),
-          Flexible(
-              child: Center(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
+          Divider(
+            height: 4,
+            color: Colors.purple.shade900,
+            thickness: 2,
+          ),
+          Center(
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
                 Row(
                   children: [
                     Padding(
@@ -48,7 +51,7 @@ class MyCart extends StatelessWidget {
                     ),
                   ],
                 ),
-              ]))),
+              ])),
           TextButton(
             child: const Text("Go back to Product Catalog"),
             onPressed: () {
