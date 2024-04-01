@@ -64,7 +64,10 @@ class MyCart extends StatelessWidget {
     List<Item> products = context.watch<ShoppingCart>().cart;
     String productname = "";
     return products.isEmpty
-        ? const Text("No Items Yet!")
+        ? const Text(
+            "No Items Yet!",
+            style: TextStyle(fontSize: 18),
+          )
         : Expanded(
             child: Column(
             children: [

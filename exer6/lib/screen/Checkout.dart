@@ -1,7 +1,10 @@
 // ignore_for_file: file_names
 
+import "package:exer6/model/Item.dart";
+import "package:exer6/provider/shoppingcart_provider.dart";
 import "package:exer6/screen/MyCart.dart";
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
 class Checkout extends StatelessWidget {
   const Checkout({super.key});
@@ -9,6 +12,8 @@ class Checkout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MyCart cart = const MyCart();
+    bool isVisible = false;
+    List<Item> products = context.watch<ShoppingCart>().cart;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Checkout", style: TextStyle(color: Colors.white)),
@@ -21,7 +26,7 @@ class Checkout extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Item Details",
-              style: TextStyle(fontSize: 28),
+              style: TextStyle(fontSize: 30),
             ),
           ),
           cart.getItems(context),
@@ -32,15 +37,25 @@ class Checkout extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Payment Successful!"),
-                          duration: Duration(seconds: 1, milliseconds: 100),
-                        ));
-                      },
-                      child: const Text("Pay Now!")),
+                  child: Visibility(
+                    visible: isVisible,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (products.isNotEmpty) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Payment Successful!"),
+                              duration: Duration(seconds: 1, milliseconds: 100),
+                            ));
+                            context.read<ShoppingCart>().removeAll();
+                            Navigator.pushNamed(context, "/products");
+                          } else {
+                            isVisible = false;
+                            noItems();
+                          }
+                        },
+                        child: const Text("Pay Now!")),
+                  ),
                 ),
               ],
             ),
@@ -48,5 +63,9 @@ class Checkout extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget noItems() {
+    return (const Text("No items to checkout"));
   }
 }
